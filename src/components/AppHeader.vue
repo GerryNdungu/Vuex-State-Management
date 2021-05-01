@@ -13,7 +13,7 @@
                                         data-toggle="dropdown"
                                         aria-haspopup="true"
                                         aria-expanded="false">
-                                    0 Cart
+                                    {{cartItemCount}} Cart
                                 </button>
                             <div @click="$event.stopPropagation()">
                                 <mini-cart />
@@ -32,6 +32,11 @@ import MiniCart from "./MiniCart"
 export default {
     components:{
         MiniCart
+    },
+    computed:{
+        cartItemCount(){
+            return this.$store.getters.cartItemCount
+        }
     }
 }
 </script>
