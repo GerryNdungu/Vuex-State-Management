@@ -7,18 +7,20 @@
 
 <script>
 import ProductCard from "./ProductCard"
-import { mapGetters,  mapActions} from 'vuex'
+import { mapGetters,  mapActions, mapState} from 'vuex'
 export default {
     components:{
         ProductCard
     },
     computed:{
-        products(){
-            return this.$store.state.products
-        }
+        ...mapState(['products'])
+        
     },
     mounted(){
-        this.$store.dispatch('getProducts')
+        this.getProducts()
+    },
+    methods:{
+        ...mapActions(['getProducts'])
     }
 }
 </script>

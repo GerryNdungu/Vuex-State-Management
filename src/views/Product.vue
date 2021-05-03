@@ -7,34 +7,38 @@
               <h1>{{product.title}}</h1>
               <h3>$ {{product.price}}</h3>
 
-                <input type="text" class="text-center col-1 mr-2 p-1">
+                <input type="text" v-model.number="quantity" class="text-center col-1 mr-2 p-1" required>
               <button @click="addToCart()" class="btn btn-primary">Add to Cart</button>
 
-              <p class="mt-4">L{{product.description}}</p>
+              <p class="mt-4">{{product.description}}</p>
 
         </div>
   </div>
 </template>
 
 <script>
+import {mapState, mapGetters, mapActions} from "vuex"
 export default {
     props: ['id'],
     mounted(){
-      this.$store.dispatch('getProduct',this.id)
+      this.getProduct(this.id)
+    },
+    data(){
+      quantity:1
     },
     computed:{
-      product(){
-        return this.$store.state.product
-      },
-      cartItemCount(){
-            return this.$store.getters.cartItemCount
-        },
+      ...mapState(['product']),
+     ...mapGetters(['cartItemCount']),
+      // cartItemCount(){
+      //       return this.$store.getters.cartItemCount
+      //   },
     },
     methods:{
+      ...mapActions(['addProductToCart','getProduct']),
       addToCart(){
-          this.$store.dispatch('addProductToCart',{
+          this.addProductToCart({
           product: this.product,
-          quantity: 1
+          quantity: this.quantity
          })
       }
     }

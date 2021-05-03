@@ -7,31 +7,46 @@
                     <br />{{item.quantity}} x $ {{item.product.price }}
                 </div>
                 <div>
-                     <a href="#" class="badge badge-secondary">remove</a>
+                     <a href="#" @click.prevent="removeCartItem(item.product)" class="badge badge-secondary">remove</a>
                 </div>
             </div>
          </div>
         <hr>   
           <div class="d-flex justify-content-between">
               <span>Total: ${{cartTotalPrice}}</span>
-              <a href="#">Clear Cart</a>
+              <a href="#" @click.prevent="clearCartItems">Clear Cart</a>
           </div>
     </div>
 </template>
 
 <script>
+import {mapState, mapGetters, mapActions} from "vuex"
+
 export default {
     computed:{
-        cart(){
-            return this.$store.state.cart
-        },
-        cartTotalPrice(){
-            return this.$store.getters.cartTotalPrice
-        }
+        // cart(){
+        //     return this.$store.state.cart
+        // },
+        ...mapState(["cart"]),
+        ...mapGetters(["cartTotalPrice"]),
+
+        // cartTotalPrice(){
+        //     return this.$store.getters.cartTotalPrice
+        // }
+    },
+    methods:{
+        ...mapActions({removeCartItem:'removeItemFromCart', clearCartItems:'cleanTheCart'})
+        // removeCartItem(product){
+        //     this.$store.dispatch('removeItemFromCart', product)
+        // },
+        // clearCartItems(){
+        //     this.$store.dispatch('cleanTheCart')
+        // }
     },
     mounted(){
         this.$store.dispatch('getCartItems')
-    }
+    },
+    
 }
 </script>
 
