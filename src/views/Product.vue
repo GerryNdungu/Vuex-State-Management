@@ -27,14 +27,16 @@ export default {
       quantity:1
     },
     computed:{
-      ...mapState(['product']),
-     ...mapGetters(['cartItemCount']),
+      ...mapState('product',["product"]),
+      // ...mapState(['product']),
+    //  ...mapGetters('cart',['cartItemCount']),
       // cartItemCount(){
       //       return this.$store.getters.cartItemCount
       //   },
     },
     methods:{
-      ...mapActions(['addProductToCart','getProduct']),
+      ...mapActions('product',['getProduct']),
+      ...mapActions('cart',['addProductToCart']),
       addToCart(){
           this.addProductToCart({
           product: this.product,

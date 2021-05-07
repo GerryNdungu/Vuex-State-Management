@@ -13,14 +13,21 @@ export default {
         ProductCard
     },
     computed:{
-        ...mapState(['products'])
+        ...mapState('product',["products"])
+        // ...mapState({
+            // products: state => state.product.products
+        // })
         
     },
     mounted(){
         this.getProducts()
     },
     methods:{
-        ...mapActions(['getProducts'])
+        ...mapActions("product",['getProducts'])
+        //OR these below method
+        // ...mapActions({
+        //     getProducts:'product/getProducts'
+        // })
     }
 }
 </script>
